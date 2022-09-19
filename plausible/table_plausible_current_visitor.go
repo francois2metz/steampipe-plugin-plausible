@@ -23,7 +23,7 @@ func tablePlausibleCurrentVisitor(ctx context.Context) *plugin.Table {
 			{
 				Name:        "domain",
 				Type:        proto.ColumnType_STRING,
-				Description: "Name of the app.",
+				Description: "Domain name.",
 				Transform:   transform.FromQual("domain"),
 			},
 			{
