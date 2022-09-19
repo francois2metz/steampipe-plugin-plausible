@@ -15,6 +15,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			Schema:      ConfigSchema,
 		},
 		TableMap: map[string]*plugin.Table{
+			"plausible_aggregate":       tablePlausibleAggregate(ctx),
 			"plausible_current_visitor": tablePlausibleCurrentVisitor(ctx),
 		},
 	}
