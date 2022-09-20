@@ -3,7 +3,7 @@ module github.com/francois2metz/steampipe-plugin-plausible
 go 1.19
 
 require (
-	github.com/andrerfcsantos/go-plausible v0.2.0
+	github.com/francois2metz/go-plausible v0.2.1-0.20220920160827-485e23683ff7
 	github.com/turbot/steampipe-plugin-sdk/v4 v4.1.6
 )
 
@@ -12,6 +12,7 @@ require (
 	github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d // indirect
 	github.com/agext/levenshtein v1.2.2 // indirect
 	github.com/allegro/bigcache/v3 v3.0.2 // indirect
+	github.com/andrerfcsantos/go-plausible v0.2.0 // indirect
 	github.com/andybalholm/brotli v1.0.3 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect

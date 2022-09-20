@@ -5,7 +5,7 @@ import (
 	"errors"
 	"os"
 
-	"github.com/andrerfcsantos/go-plausible/plausible"
+	"github.com/francois2metz/go-plausible/plausible"
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
 )
 

@@ -2,7 +2,7 @@ package plausible
 
 import (
 	"context"
-	"github.com/andrerfcsantos/go-plausible/plausible"
+	"github.com/francois2metz/go-plausible/plausible"
 	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
@@ -30,22 +30,32 @@ func tablePlausibleAggregate(ctx context.Context) *plugin.Table {
 			{
 				Name:        "bounce_rate",
 				Type:        proto.ColumnType_DOUBLE,
-				Description: "",
+				Description: "The bounce rate percentage.",
 			},
 			{
 				Name:        "pageviews",
 				Type:        proto.ColumnType_DOUBLE,
-				Description: "",
+				Description: "The number of pageview events.",
 			},
 			{
 				Name:        "visit_duration",
-				Type:        proto.ColumnType_DOUBLE,
-				Description: "",
+				Type:        proto.ColumnType_INT,
+				Description: "The visit duration in seconds.",
 			},
 			{
 				Name:        "visitors",
-				Type:        proto.ColumnType_DOUBLE,
-				Description: "",
+				Type:        proto.ColumnType_INT,
+				Description: "The number of unique visitors.",
+			},
+			{
+				Name:        "visits",
+				Type:        proto.ColumnType_INT,
+				Description: "The number of visits/sessions.",
+			},
+			{
+				Name:        "events",
+				Type:        proto.ColumnType_INT,
+				Description: "The number of events (pageviews + custom events).",
 			},
 			{
 				Name:        "period",
@@ -85,6 +95,8 @@ func getAggregate(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDat
 			plausible.PageViews,
 			plausible.BounceRate,
 			plausible.VisitDuration,
+			plausible.Visits,
+			plausible.Events,
 		},
 	}
 	result, err := site.Aggregate(visitorsQuery)
