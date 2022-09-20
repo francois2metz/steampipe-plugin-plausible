@@ -13,8 +13,12 @@ func tablePlausibleAggregate(ctx context.Context) *plugin.Table {
 		Name:        "plausible_aggregate",
 		Description: "Aggregates metrics over a certain time period.",
 		Get: &plugin.GetConfig{
-			Hydrate:    getAggregate,
-			KeyColumns: plugin.SingleColumn("domain"),
+			Hydrate: getAggregate,
+			KeyColumns: []*plugin.KeyColumn{
+				{Name: "domain"},
+				{Name: "period", Require: plugin.Optional},
+				{Name: "date", Require: plugin.Optional},
+			},
 		},
 		Columns: []*plugin.Column{
 			{
@@ -43,6 +47,18 @@ func tablePlausibleAggregate(ctx context.Context) *plugin.Table {
 				Type:        proto.ColumnType_DOUBLE,
 				Description: "",
 			},
+			{
+				Name:        "period",
+				Type:        proto.ColumnType_STRING,
+				Description: "The time period (12mo, 6mo, month, 30d, 7d, day, custom). Default is 30d.",
+				Transform:   transform.FromQual("period"),
+			},
+			{
+				Name:        "date",
+				Type:        proto.ColumnType_STRING,
+				Description: "The date range to aggregate from when using the day or custom period.",
+				Transform:   transform.FromQual("date"),
+			},
 		},
 	}
 }
@@ -55,9 +71,15 @@ func getAggregate(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDat
 	}
 	quals := d.KeyColumnQuals
 	domain := quals["domain"].GetStringValue()
+	period := quals["period"].GetStringValue()
+	date := quals["date"].GetStringValue()
+	if period == "" {
+		period = "30d"
+	}
+
 	site := client.Site(domain)
 	visitorsQuery := plausible.AggregateQuery{
-		Period: plausible.DayPeriod(),
+		Period: plausible.TimePeriod{Period: period, Date: date},
 		Metrics: plausible.Metrics{
 			plausible.Visitors,
 			plausible.PageViews,
