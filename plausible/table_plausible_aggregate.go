@@ -2,6 +2,8 @@ package plausible
 
 import (
 	"context"
+	"strings"
+
 	"github.com/francois2metz/go-plausible/plausible"
 	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
@@ -33,14 +35,29 @@ func tablePlausibleAggregate(ctx context.Context) *plugin.Table {
 				Description: "The bounce rate percentage.",
 			},
 			{
-				Name:        "pageviews",
+				Name:        "bounce_rate_change",
 				Type:        proto.ColumnType_DOUBLE,
+				Description: "The percent difference of the bounce rate with the previous period.",
+			},
+			{
+				Name:        "pageviews",
+				Type:        proto.ColumnType_INT,
 				Description: "The number of pageview events.",
 			},
 			{
-				Name:        "visit_duration",
+				Name:        "pageviews_change",
 				Type:        proto.ColumnType_INT,
+				Description: "The percent difference of the number of pageview events with the previous period.",
+			},
+			{
+				Name:        "visit_duration",
+				Type:        proto.ColumnType_DOUBLE,
 				Description: "The visit duration in seconds.",
+			},
+			{
+				Name:        "visit_duration_change",
+				Type:        proto.ColumnType_DOUBLE,
+				Description: "The percent difference of the visit duration in seconds with the previous period.",
 			},
 			{
 				Name:        "visitors",
@@ -48,14 +65,29 @@ func tablePlausibleAggregate(ctx context.Context) *plugin.Table {
 				Description: "The number of unique visitors.",
 			},
 			{
+				Name:        "visitors_change",
+				Type:        proto.ColumnType_INT,
+				Description: "The percent difference of the number of unique visitors with the previous period.",
+			},
+			{
 				Name:        "visits",
 				Type:        proto.ColumnType_INT,
 				Description: "The number of visits/sessions.",
 			},
 			{
+				Name:        "visits_change",
+				Type:        proto.ColumnType_INT,
+				Description: "The percent difference of the number of visits/sessions with the previous period.",
+			},
+			{
 				Name:        "events",
 				Type:        proto.ColumnType_INT,
 				Description: "The number of events (pageviews + custom events).",
+			},
+			{
+				Name:        "events_change",
+				Type:        proto.ColumnType_INT,
+				Description: "The percent difference of the number of events (pageviews + custom events) with the previous period.",
 			},
 			{
 				Name:        "period",
@@ -87,8 +119,9 @@ func getAggregate(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDat
 		period = "30d"
 	}
 	metrics := plausible.Metrics{}
+	comparePreviousPeriod := false
 	for _, v := range d.QueryContext.Columns {
-		switch v {
+		switch strings.Replace(v, "_change", "", -1) {
 		case "bounce_rate":
 			metrics = append(metrics, plausible.BounceRate)
 		case "visitors":
@@ -102,12 +135,16 @@ func getAggregate(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDat
 		case "events":
 			metrics = append(metrics, plausible.Events)
 		}
+		if strings.Contains(v, "_change") {
+			comparePreviousPeriod = true
+		}
 	}
 
 	site := client.Site(domain)
 	visitorsQuery := plausible.AggregateQuery{
-		Period:  plausible.TimePeriod{Period: period, Date: date},
-		Metrics: metrics,
+		Period:                plausible.TimePeriod{Period: period, Date: date},
+		Metrics:               metrics,
+		ComparePreviousPeriod: comparePreviousPeriod,
 	}
 	result, err := site.Aggregate(visitorsQuery)
 	if err != nil {
