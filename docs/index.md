@@ -19,9 +19,28 @@ icon_url: "/images/plugins/francois2metz/plausible.svg"
 For example:
 
 ```sql
+select
+  time,
+  visitors
+from
+  plausible_timeseries
+where
+  domain='example.net'
+  and period='6mo'
+  and interval='month'
 ```
 
 ```
++------------+----------+
+| time       | visitors |
++------------+----------+
+| 2022-04-01 | 453      |
+| 2022-06-01 | 358      |
+| 2022-07-01 | 556      |
+| 2022-09-01 | 705      |
+| 2022-05-01 | 488      |
+| 2022-08-01 | 677      |
++------------+----------+
 ```
 
 ## Documentation

@@ -20,6 +20,7 @@ where
 
 ```sql
 select
+  time,
   visitors
 from
   plausible_timeseries
@@ -33,6 +34,7 @@ where
 
 ```sql
 select
+  time,
   visitors
 from
   plausible_timeseries
