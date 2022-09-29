@@ -99,7 +99,7 @@ func listTimeseries(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateD
 		period = "30d"
 	}
 	if interval == "" {
-		interval = "day"
+		interval = "date"
 	}
 	metrics := getMetrics(d.QueryContext.Columns)
 
