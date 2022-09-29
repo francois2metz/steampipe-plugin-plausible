@@ -118,23 +118,9 @@ func getAggregate(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDat
 	if period == "" {
 		period = "30d"
 	}
-	metrics := plausible.Metrics{}
+	metrics := getMetrics(d.QueryContext.Columns)
 	comparePreviousPeriod := false
 	for _, v := range d.QueryContext.Columns {
-		switch strings.Replace(v, "_change", "", -1) {
-		case "bounce_rate":
-			metrics = append(metrics, plausible.BounceRate)
-		case "visitors":
-			metrics = append(metrics, plausible.Visitors)
-		case "pageviews":
-			metrics = append(metrics, plausible.PageViews)
-		case "visit_duration":
-			metrics = append(metrics, plausible.VisitDuration)
-		case "visits":
-			metrics = append(metrics, plausible.Visits)
-		case "events":
-			metrics = append(metrics, plausible.Events)
-		}
 		if strings.Contains(v, "_change") {
 			comparePreviousPeriod = true
 		}

@@ -17,6 +17,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		TableMap: map[string]*plugin.Table{
 			"plausible_aggregate":       tablePlausibleAggregate(ctx),
 			"plausible_current_visitor": tablePlausibleCurrentVisitor(ctx),
+			"plausible_timeseries":      tablePlausibleTimeseries(ctx),
 		},
 	}
 	return p

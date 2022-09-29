@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"os"
+	"strings"
 
 	"github.com/francois2metz/go-plausible/plausible"
 	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
@@ -34,4 +35,25 @@ func connect(ctx context.Context, d *plugin.QueryData) (*plausible.Client, error
 	d.ConnectionManager.Cache.Set(cacheKey, client)
 
 	return client, nil
+}
+
+func getMetrics(columns []string) plausible.Metrics {
+	metrics := plausible.Metrics{}
+	for _, v := range columns {
+		switch strings.Replace(v, "_change", "", -1) {
+		case "bounce_rate":
+			metrics = append(metrics, plausible.BounceRate)
+		case "visitors":
+			metrics = append(metrics, plausible.Visitors)
+		case "pageviews":
+			metrics = append(metrics, plausible.PageViews)
+		case "visit_duration":
+			metrics = append(metrics, plausible.VisitDuration)
+		case "visits":
+			metrics = append(metrics, plausible.Visits)
+		case "events":
+			metrics = append(metrics, plausible.Events)
+		}
+	}
+	return metrics
 }

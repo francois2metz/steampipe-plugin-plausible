@@ -3,7 +3,7 @@ module github.com/francois2metz/steampipe-plugin-plausible
 go 1.19
 
 require (
-	github.com/francois2metz/go-plausible v0.2.1-0.20220920160827-485e23683ff7
+	github.com/francois2metz/go-plausible v0.2.1-0.20220929163207-4469dea43722
 	github.com/turbot/steampipe-plugin-sdk/v4 v4.1.6
 )
 
