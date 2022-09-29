@@ -7,9 +7,13 @@ import (
 
 type plausibleConfig struct {
 	Token *string `cty:"token"`
+	BaseURL *string `cty:"base_url"`
 }
 
 var ConfigSchema = map[string]*schema.Attribute{
+	"base_url": {
+		Type: schema.TypeString,
+	},
 	"token": {
 		Type: schema.TypeString,
 	},

@@ -18,18 +18,27 @@ func connect(ctx context.Context, d *plugin.QueryData) (*plausible.Client, error
 	}
 
 	token := os.Getenv("PLAUSIBLE_TOKEN")
+	baseURL := os.Getenv("PLAUSIBLE_BASE_URL")
 
 	plausibleConfig := GetConfig(d.Connection)
 
 	if plausibleConfig.Token != nil {
 		token = *plausibleConfig.Token
 	}
+	if plausibleConfig.BaseURL != nil {
+		baseURL = *plausibleConfig.BaseURL
+	}
 
 	if token == "" {
 		return nil, errors.New("'token' must be set in the connection configuration. Edit your connection configuration file or set the PLAUSIBLE_TOKEN environment variable and then restart Steampipe")
 	}
 
-	client := plausible.NewClient(token)
+	var client *plausible.Client
+	if baseURL != "" {
+		client = plausible.NewClientWithBaseURL(token, baseURL)
+	} else {
+		client = plausible.NewClient(token)
+	}
 
 	// Save to cache
 	d.ConnectionManager.Cache.Set(cacheKey, client)

@@ -48,6 +48,9 @@ connection "francois2metz/plausible" {
 
   # Go to https://plausible.io/settings/api-keys/new
   # token = ""
+
+  # Base URL to the Plausible API when using a custom installation
+  # base_url = ""
 }
 
 ```
@@ -55,6 +58,7 @@ connection "francois2metz/plausible" {
 You can also use environment variables:
 
 - `PLAUSIBLE_TOKEN`: Your plausible API Key
+- `PLAUSIBLE_BASE_URL`: The plausible base API URL
 
 ## Get Involved
 
