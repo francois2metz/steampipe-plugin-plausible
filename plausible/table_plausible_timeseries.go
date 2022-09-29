@@ -105,8 +105,9 @@ func listTimeseries(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateD
 
 	site := client.Site(domain)
 	tsQuery := plausible.TimeseriesQuery{
-		Period:  plausible.TimePeriod{Period: period, Date: date},
-		Metrics: metrics,
+		Period:   plausible.TimePeriod{Period: period, Date: date},
+		Metrics:  metrics,
+		Interval: plausible.TimeInterval(interval),
 	}
 	result, err := site.Timeseries(tsQuery)
 	if err != nil {
