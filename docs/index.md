@@ -45,7 +45,7 @@ where
 
 ## Documentation
 
-- **[Table definitions & examples →](/plugins/francois2metz/plausible/tables)**
+- **[Table definitions & examples →](/plugins/francois2metz/steampipe-plugin-plausible/tables)**
 
 ## Get started
 
