@@ -6,7 +6,7 @@ toolchain go1.21.3
 
 require (
 	github.com/andrerfcsantos/go-plausible v0.3.1
-	github.com/turbot/steampipe-plugin-sdk/v4 v4.1.13
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.10.1
 )
 
 require (
