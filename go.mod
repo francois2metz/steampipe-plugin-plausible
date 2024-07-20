@@ -2,7 +2,7 @@ module github.com/francois2metz/steampipe-plugin-plausible
 
 go 1.21.0
 
-toolchain go1.21.3
+toolchain go1.22.5
 
 require (
 	github.com/andrerfcsantos/go-plausible v0.3.1
