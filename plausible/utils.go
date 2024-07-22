@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/andrerfcsantos/go-plausible/plausible"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
 func connect(ctx context.Context, d *plugin.QueryData) (*plausible.Client, error) {

@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	"github.com/andrerfcsantos/go-plausible/plausible"
-	"github.com/turbot/steampipe-plugin-sdk/v4/grpc/proto"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v4/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
 func tablePlausibleAggregate(ctx context.Context) *plugin.Table {
@@ -111,7 +111,7 @@ func getAggregate(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDat
 		plugin.Logger(ctx).Error("plausible_aggregate.getAggregate", "connection_error", err)
 		return nil, err
 	}
-	quals := d.KeyColumnQuals
+	quals := d.EqualsQuals
 	domain := quals["domain"].GetStringValue()
 	period := quals["period"].GetStringValue()
 	date := quals["date"].GetStringValue()
