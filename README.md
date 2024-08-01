@@ -9,7 +9,7 @@ Use SQL to query statistics from [Plausible][].
 
 Install the plugin with [Steampipe][]:
 
-    steampipe plugin install francois2metz/plausible
+    steampipe plugin install ghcr.io/francois2metz/plausible
 
 ## Development
 

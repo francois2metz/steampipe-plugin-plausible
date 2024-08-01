@@ -54,7 +54,7 @@ where
 Download and install the latest Plausible plugin:
 
 ```bash
-steampipe plugin install francois2metz/plausible
+steampipe plugin install ghcr.io/francois2metz/plausible
 ```
 
 ### Configuration
@@ -63,7 +63,7 @@ Installing the latest plausible plugin will create a config file (`~/.steampipe/
 
 ```hcl
 connection "francois2metz/plausible" {
-  plugin = "francois2metz/plausible"
+  plugin = "ghcr.io/francois2metz/plausible"
 
   # Go to https://plausible.io/settings/api-keys/new
   # token = "IH-EtVQAtk7ytSQ1lDo46CFjXZmTJF0g8UpKP6wtq1PmnE1nKih-8XEf4iHsZU8W"
