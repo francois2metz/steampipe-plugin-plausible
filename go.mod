@@ -8,7 +8,7 @@ replace github.com/andrerfcsantos/go-plausible => github.com/francois2metz/go-pl
 
 require (
 	github.com/andrerfcsantos/go-plausible v0.0.0-00010101000000-000000000000
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.10.1
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.10.2
 )
 
 require (
