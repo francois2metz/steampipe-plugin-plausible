@@ -3,7 +3,7 @@ package plausible
 import (
 	"context"
 
-	"github.com/andrerfcsantos/go-plausible/plausible"
+	"github.com/andrerfcsantos/go-plausible/plausible/urlmaker/pagination"
 	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
@@ -41,9 +41,9 @@ func listSite(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (
 		return nil, err
 	}
 
-	opts := plausible.ListSitesRequest{Limit: 100}
+	var after = ""
 	for {
-		result, err := client.ListSites(opts)
+		result, err := client.ListSites(pagination.After(after), pagination.Limit(100))
 		if err != nil {
 			plugin.Logger(ctx).Error("plausible_site.listSite", err)
 			return nil, err
@@ -54,7 +54,7 @@ func listSite(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (
 		if result.Meta.After == "" {
 			break
 		}
-		opts.After = result.Meta.After
+		after = result.Meta.After
 	}
 	return nil, nil
 }
@@ -69,7 +69,7 @@ func getSite(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (i
 	quals := d.EqualsQuals
 	domain := quals["domain"].GetStringValue()
 	site := client.Site(domain)
-	site2, err := site.Get()
+	site2, err := site.Details()
 	if err != nil {
 		plugin.Logger(ctx).Error("plausible_site.getSite", err)
 		return nil, err
