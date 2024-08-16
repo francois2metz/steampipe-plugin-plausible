@@ -1,8 +1,6 @@
 module github.com/francois2metz/steampipe-plugin-plausible
 
-go 1.21.0
-
-toolchain go1.21.3
+go 1.22.6
 
 replace github.com/andrerfcsantos/go-plausible => github.com/francois2metz/go-plausible v0.3.2
 
