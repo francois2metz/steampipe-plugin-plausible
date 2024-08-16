@@ -5,7 +5,7 @@ go 1.22.6
 replace github.com/andrerfcsantos/go-plausible => github.com/francois2metz/go-plausible v0.3.2
 
 require (
-	github.com/andrerfcsantos/go-plausible v0.0.0-00010101000000-000000000000
+	github.com/andrerfcsantos/go-plausible v0.4.0
 	github.com/turbot/steampipe-plugin-sdk/v5 v5.10.3
 )
 
