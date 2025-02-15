@@ -1,6 +1,6 @@
 module github.com/francois2metz/steampipe-plugin-plausible
 
-go 1.22.6
+go 1.23.6
 
 require (
 	github.com/andrerfcsantos/go-plausible v0.4.0
