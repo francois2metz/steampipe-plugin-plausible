@@ -49,7 +49,7 @@ func connect(ctx context.Context, d *plugin.QueryData) (*plausible.Client, error
 func getMetrics(columns []string) plausible.Metrics {
 	metrics := plausible.Metrics{}
 	for _, v := range columns {
-		switch strings.Replace(v, "_change", "", -1) {
+		switch strings.ReplaceAll(v, "_change", "") {
 		case "bounce_rate":
 			metrics = append(metrics, plausible.BounceRate)
 		case "visitors":
