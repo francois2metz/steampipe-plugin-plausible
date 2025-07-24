@@ -4,7 +4,7 @@ go 1.24
 
 require (
 	github.com/andrerfcsantos/go-plausible v0.5.0
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.12.0
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.13.0
 )
 
 require (
